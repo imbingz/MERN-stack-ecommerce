@@ -7,6 +7,12 @@ card-bg: #f8f8f8;
 card-border: #c0c0c0;
 rating:  #f0c040;
 numReviews: #404040;
+success: #20a020;
+error:  #a02020;
+button-bg: #f8f8f8;
+button-border:#a4a4a4
+button-primary-bg: #f0c040;
+button-hover-border: #404040
 */
 
 /* Common */
@@ -45,6 +51,40 @@ a:hover {
 	color: #ff8000;
 }
 
+ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+
+li {
+	margin: 1rem;
+}
+
+button {
+	padding: 1rem;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	background-color: #f8f8f8;
+	border: 0.1rem solid #a4a4a4;
+	font-size: 1.6rem; /* 16px */
+	font-family: Helvetica, Arial, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+button.primary {
+	background-color: #f0c040;
+}
+
+button.block {
+	width: 100%;
+}
+
+button:hover {
+	border: 0.1rem solid #404040;
+}
+
 .row {
 	display: flex;
 	flex-wrap: wrap;
@@ -54,6 +94,18 @@ a:hover {
 
 .row.center {
 	justify-content: center;
+}
+
+.row.top {
+	align-items: flex-start;
+}
+
+.col-1 {
+	flex: 1 1 25rem;
+}
+
+.col-2 {
+	flex: 2 1 50rem;
 }
 
 /* Layout */
@@ -99,6 +151,11 @@ img.medium {
 	width: 100%;
 }
 
+/* image responsive */
+img.large {
+	width: 100%;
+}
+
 /* Card */
 .card {
 	border: 0.1rem #c0c0c0 solid;
@@ -123,4 +180,13 @@ img.medium {
 
 .rating span:last-child {
 	color: #404040;
+}
+
+/* product status  */
+.success {
+	color: #20a020;
+}
+
+.error {
+	color: #a02020;
 }
