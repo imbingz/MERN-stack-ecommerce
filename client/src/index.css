@@ -3,8 +3,10 @@ Colors:
 header/foooter-bg #203040; 
 header/footer -text: #fff; 
 link-hoveer: #ff8000; 
-card-bg: #f8f8f8
-card-border: #c0c0c0
+card-bg: #f8f8f8;
+card-border: #c0c0c0;
+rating:  #f0c040;
+numReviews: #404040;
 */
 
 /* Common */
@@ -117,4 +119,8 @@ img.medium {
 .rating span {
 	color: #f0c040;
 	margin: 0.1rem;
+}
+
+.rating span:last-child {
+	color: #404040;
 }
