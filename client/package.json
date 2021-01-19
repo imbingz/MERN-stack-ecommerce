@@ -6,10 +6,8 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.21.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
@@ -24,7 +22,51 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "settings": {
+        "react": {
+            "version": "999.999.999"
+        }
+    },
+    "rules": {
+      "array-callback-return": "warn",
+      "curly": "warn",
+      "dot-notation": "warn",
+      "eqeqeq": "warn",
+      "implicit-arrow-linebreak": [
+        "warn",
+        "beside"
+      ],
+      "indent": [
+        "warn",
+        4,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "no-duplicate-case": "warn",
+      "no-else-return": "warn",
+      "no-empty": "warn",
+      "no-empty-function": "warn",
+      "no-extra-semi": "warn",
+      "no-func-assign": "warn",
+      "no-irregular-whitespace": "warn",
+      "no-multi-spaces": "warn",
+      "no-unreachable": "warn",
+      "no-unused-vars": "warn",
+      "no-var": "warn",
+      "prefer-arrow-callback": "warn",
+      "quotes": [
+        "warn",
+        "single"
+      ],
+      "semi": [
+        "warn",
+        "always"
+      ],
+      "vars-on-top": "warn",
+      "yoda": "warn"
+    }
   },
   "browserslist": {
     "production": [
@@ -38,5 +80,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://127.0.0.1:8080"
+  "proxy": "http://127.0.0.1:8080",
+  "devDependencies": {
+    "eslint-plugin-react": "^7.22.0"
+  }
 }
