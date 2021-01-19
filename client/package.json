@@ -24,9 +24,9 @@
       "react-app/jest"
     ],
     "settings": {
-        "react": {
-            "version": "999.999.999"
-        }
+      "react": {
+        "version": "999.999.999"
+      }
     },
     "rules": {
       "array-callback-return": "warn",
@@ -80,8 +80,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://127.0.0.1:8080",
-  "devDependencies": {
-    "eslint-plugin-react": "^7.22.0"
-  }
+  "proxy": "http://127.0.0.1:8080"
 }
