@@ -1,8 +1,6 @@
 import React from 'react';
-import Product from './components/Product';
+import Product from './components/Product/index';
 import data from './data/products';
-
-
 
 function App() {
   return (
@@ -20,7 +18,7 @@ function App() {
         <div>
           <div className="row center">
               {data.products.map(product => (
-                  <Product product = { product } />
+                  <Product key={product._id} product={ product } />
               ))}         
           </div>
         </div>
