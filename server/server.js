@@ -1,7 +1,9 @@
 require('dotenv').config();
 const express = require('express');
-const app = express();
 const path = require('path');
+//get the product seeds data 
+const data = require('./seeds/products');
+const app = express();
 
 
 const PORT = process.env.PORT || 8080;
@@ -10,6 +12,17 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // app.use(routes);
+
+
+// temp product api route 
+app.get('/api/products', (req, res) => {
+    res.send(data.products);
+});
+
+//test server route 
+app.get('/', (req, res) => {
+    res.send('Server is ready');
+});
 
 //For heroku deployment - this block of codes will only run in production env
 if (process.env.NODE_ENV === 'production') {
@@ -20,7 +33,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-
+//server 
 app.listen(PORT, () => {
     console.log(`listening on PORT ${PORT}. http://localhost:${PORT}`);
 });
