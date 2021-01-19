@@ -1,26 +1,36 @@
 {
-  "name": "passport-oauth2-react",
+  "name": "react-ecommerce",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/server.js",
+    "start:server": "nodemon server/server.js",
+    "start:client": "cd client && npm start",
+    "dev": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "install": "cd client && npm i",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build",
+    "lint": "eslint client/src/**/*.jsx  client/src/**/*.js server/**/*.js",
+    "lint:fix": "eslint client/src/**/*.jsx --fix client/src/**/*.js --fix server/**/*.js --fix",
+    "test:server": "jest --watch",
+    "test:client": "cd client && npm run test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/imbingz/pp.git"
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules"
+    ]
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/imbingz/pp/issues"
-  },
-  "homepage": "https://github.com/imbingz/pp#readme",
   "dependencies": {
-    "cors": "^2.8.5",
+    "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.15.0",
     "express": "^4.17.1",
-    "passport": "^0.4.1",
-    "passport-facebook": "^3.0.0"
+    "yarn": "^1.22.10"
+  },
+  "devDependencies": {
+    "eslint": "^7.12.1",
+    "nodemon": "^2.0.6"
   }
 }
