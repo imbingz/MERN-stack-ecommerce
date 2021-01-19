@@ -1,23 +1,11 @@
-import React from 'react';
-import data from './data/products';
+import React from 'react'
 import { AiFillStar } from 'react-icons/ai';
 
-function App() {
-  return (
-    <div className="grid-container">
-      <header className="row">
-        <div>
-          <a className="brand" href="index.html">amazona</a>
-        </div>
-        <div>
-          <a href="/cart">Cart</a>
-          <a href="/signin">Sign In</a>
-        </div>
-      </header>
-      <main>
-        <div>
-          <div className="row center">
-              {data.products.map(product => (<div className="card">
+function Product(props) {
+
+    const { product } = props
+    return (
+        <div className="card">
               <a href={`/product/${product._id}`}>
                
                 <img className="medium" src={product.image} alt="product" />
@@ -35,13 +23,8 @@ function App() {
                 </div>
                 <div className="price">${product.price}</div>
               </div>
-            </div>))}         
-          </div>
-        </div>
-      </main>
-      <footer className="row center">All right reserved</footer>
-    </div>
-  );
+            </div>
+    )
 }
 
-export default App;
+export default Product
