@@ -32,7 +32,7 @@ function ProductScreen (props) {
                         </li>
                         <li>Price: ${product.price}</li>
                         <li>
-							Description:
+              Description:
                             <p>{product.description} </p>
                         </li>
                     </ul>
