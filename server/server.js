@@ -19,10 +19,10 @@ app.get('/api/products', (req, res) => {
     res.send(data.products);
 });
 
-//test server route 
-app.get('/', (req, res) => {
-    res.send('Server is ready');
-});
+// //test server route 
+// app.get('/', (req, res) => {
+//     res.send('Server is ready');
+// });
 
 //For heroku deployment - this block of codes will only run in production env
 if (process.env.NODE_ENV === 'production') {
