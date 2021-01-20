@@ -1,13 +1,14 @@
-import { createStore, compose, applyMiddleware } from 'redux';
+import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import data from '../data/products';
+import { productListReducer } from '../reducers/productReducer';
 
 
 const initialState = {};
 
-const reducer = (state, action) => {
-    return { products: data.products };
-};
+// all reducers  
+const reducer = combineReducers({
+    productList: productListReducer
+});
 
 //https://extension.remotedev.io/#usage
 //https://redux.js.org/api/compose
