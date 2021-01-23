@@ -14,10 +14,23 @@ app.use(express.json());
 // app.use(routes);
 
 
+// temp product api/product route 
+app.get('/api/products/:id', (req, res) => {
+    const product = data.products.find( x => x._id === req.params.id);
+    //check condition
+    if(product) {
+        res.send(product);
+    } else {
+        res.status(404).send({ message: 'Product Not Found'});
+    }
+});
+
+
 // temp product api route 
 app.get('/api/products', (req, res) => {
     res.send(data.products);
 });
+
 
 // //test server route 
 // app.get('/', (req, res) => {
