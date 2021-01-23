@@ -6,7 +6,7 @@ import {
 
 //productListReducer takes the payload from productAxtions --> dispatch
 // if no default state, we will see an error 
-export const productListReducer = (state = { products: []}, action) => {
+export const productListReducer = (state = {loading: true, products: []}, action) => {
     switch(action.type) {
         case PRODUCT_LIST_REQUEST:
             return { loading: true};
