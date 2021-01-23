@@ -64,16 +64,22 @@ li {
 	margin: 1rem;
 }
 
+input, 
+select,
+textarea,
 button {
 	padding: 1rem;
 	border-radius: 0.5rem;
-	cursor: pointer;
-	background-color: #f8f8f8;
 	border: 0.1rem solid #a4a4a4;
 	font-size: 1.6rem; /* 16px */
 	font-family: Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+button {
+		cursor: pointer;
+		background-color: #f8f8f8;
 }
 
 button.primary {
@@ -84,6 +90,9 @@ button.block {
 	width: 100%;
 }
 
+input:hover,
+select:hover,
+textarea:hover,
 button:hover {
 	border: 0.1rem solid #404040;
 }
