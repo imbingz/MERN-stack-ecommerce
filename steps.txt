@@ -1,0 +1,110 @@
+tutorial link https://www.youtube.com/watch?v=TRCDsB9i3bI
+
+https://github.com/basir/amazona
+
+// Technologies: 
+MERN - Mongodb, Express, Node, React (redux )
+payment - paypal, stripe 
+Authentication - JsonWebToken, bcrypt 
+Map -  Google Map API
+Socket.io/-clinet - front and back 
+Mail Service - Mailgun 
+Browser: Google Chrome
+Code Editor: VS Code
+HTTP client: Axios
+API testing: Postman
+linting setup: eslint (package.json config) 
+
+// Featuers: 
+A gfull-functional e-commerce website and more
+sales report chat
+upload images 
+Admin dashboard 
+Online Customer Support  (Online chat with Admin) 
+edit profile info 
+reset-password 
+deliver / shipping goods to customers
+choose address on the google map (google map API)
+product mongodb queries - search, create, edit, delete
+Email confirmation for orders 
+Google Chat API 
+aws - live serveys  
+
+// STEPS: 
+
+Client: 
+// Initial Dir Setup n heroku deploy: 
+- ceate-react-app 
+- npm react-router-dom axios redux react-redux
+- github travisIC setup and connection
+- travis.yml
+- eslintrc.json
+- eslintignore
+- setup server
+- add proxy to client/package.json
+- deploy to heroku 
+
+// Template for a rough layout of the site in html 
+
+// move files from Template to Client App as is 
+
+// create a product database in src/data
+
+// use map function to render through the product data in App.js
+
+// Components 
+
+Redux: 
+- npm i redux react-redux redux-thunk
+- create store.js
+- initState = {  product:[]  }
+- reducer = (state, action) => switch LOAD-PRODUCTS: { proudcts: action.payload}
+- export default createStore(reducer, initState) 
+- Edit HomeScreen.js
+- ShopName = useSelector(state => state.products)
+- const dispatch = useDispatch()
+- useEffect(() => dispatch( {type: LOAD_PRODUCTS, payload: data}))
+- Add store to index.js
+
+
+Add Redux to Product HomeScreen
+- create product details constants, actions, and reducers
+- add reducer to store.js
+- use action in ProductScreen.js
+- add /api/proudct/:id to backend api
+
+
+
+Server: 
+- run npm init in root folder
+- npm i express 
+- update paclage.json set type: module
+- add .js to imports
+- npm install Express
+- create server.js
+- add start coommand as node e backend/server.js
+- require Express
+- create routes for backend
+- move product data from frontend to backend
+- create route for api/proudcts
+- return proudcts
+- run npm start
+
+
+package.json {
+    "type":"module,
+
+    "scripts":{
+        "start":"nodemon --watch server --exec node --experimental-modules server/server.js"
+    },
+
+     "proxy": "http://127.0.0.1:8080"
+}
+
+
+
+credits: 
+[react eslint warning solution](https://github.com/DRD4-7R/eslint-config-7r-building/issues/1)
+
+[redux-compose](https://redux.js.org/api/compose)
+[redux-devtools](https://github.com/reduxjs/redux-devtools)
