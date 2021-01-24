@@ -19,4 +19,10 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
             qty
         }
     });
+
+    //after adding items to cart, get cartItems from redux store using getState and store data in localStorage
+    localStorage.setItem(
+        'cartItems',
+        JSON.stringify(getState().cart.cartItems)
+    );
 };
