@@ -16,6 +16,7 @@ button-hover-border: #404040;
 alert-info: #2020a0;
 alert-info-bg: #e0e0ff;
 alert-error-bg: #ffe0e0e0;
+badge-bg: #f02020
 */
 
 /* Common */
@@ -154,6 +155,14 @@ a.brand {
 	font-weight: bold;
 }
 
+.badge {
+	background-color: #f02020;
+	color: #fff;
+	border-radius: 50%;
+	padding: 0.2rem 0.6rem;
+	font-size: 1.4rem;
+	margin-left: 0.2rem;
+}
 /* Image */
 img {
 	border-radius: 0.5rem;

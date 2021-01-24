@@ -1,10 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 
 function App () {
+    // get cart from redux store using useSelector
+    const cart = useSelector(state => state.cart);
+    // decontructure cart to get cartItems
+    const {cartItems} = cart;
+
     return (
         <BrowserRouter>
             <div className='grid-container'>
@@ -15,7 +21,15 @@ function App () {
                         </Link>
                     </div>
                     <div>
-                        <Link to='/cart'>Cart</Link>
+                        <Link to='/cart'>
+                            Cart
+                            {
+                                cartItems.length > 0 && (
+                                    <span className='badge'>{ cartItems.length }</span>
+                                )
+                            }  
+                        </Link>
+                        
                         <Link to='/signin'>Sign In</Link>
                     </div>
                 </header>
