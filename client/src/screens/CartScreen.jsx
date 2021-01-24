@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import MessageBox from '../components/MessageBox';
 
 
@@ -23,9 +23,9 @@ function CartScreen(props) {
         }
     }, [dispatch, productId, qty]);
     
+    //delete cartItem action
     const removeFromCartHandler = (id) => {
-        //delete action
-
+        dispatch(removeFromCart(id));
     };
 
     //After checkout btn is clicked, go to signin page and then shipping page

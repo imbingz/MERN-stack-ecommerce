@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CART_ADD_ITEM } from '../constants/cartConstants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants';
 
 // when we define an action function, it should return an async function with dispatch 
 // disptach and getState are redux-thunk functions to get access to redux store
@@ -25,4 +25,11 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
         'cartItems',
         JSON.stringify(getState().cart.cartItems)
     );
+};
+
+//remove item from cart action 
+export const removeFromCart = (productId) => (dispatch, getState) => {
+    dispatch({type: CART_REMOVE_ITEM, payload: productId});
+
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
