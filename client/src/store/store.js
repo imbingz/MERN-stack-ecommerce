@@ -1,6 +1,7 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { ProductDetailsReducer, productListReducer } from '../reducers/productReducer';
+import { cartReducer } from '../reducers/cartReducer';
 
 
 const initialState = {};
@@ -8,7 +9,8 @@ const initialState = {};
 // all reducers  
 const reducer = combineReducers({
     productList: productListReducer,
-    productDetails: ProductDetailsReducer
+    productDetails: ProductDetailsReducer,
+    cart:cartReducer
 });
 
 //https://extension.remotedev.io/#usage
