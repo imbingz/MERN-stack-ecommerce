@@ -3,8 +3,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/userRouter');
-//get the product seeds data 
-const data = require('./seeds/seed');
+const productRouter = require('./routes/productRouter');
 const app = express();
 
 //db connect 
@@ -23,30 +22,9 @@ app.use(express.json());
 
 //use serRouter
 app.use('/api/users', userRouter);
+app.use('/api/products', productRouter);
 
 
-// temp product api/product route 
-app.get('/api/products/:id', (req, res) => {
-    const product = data.products.find( x => x._id === req.params.id);
-    //check condition
-    if(product) {
-        res.send(product);
-    } else {
-        res.status(404).send({ message: 'Product Not Found'});
-    }
-});
-
-
-// temp product api route 
-app.get('/api/products', (req, res) => {
-    res.send(data.products);
-});
-
-
-// //test server route 
-// app.get('/', (req, res) => {
-//     res.send('Server is ready');
-// });
 
 //For heroku deployment - this block of codes will only run in production env
 if (process.env.NODE_ENV === 'production') {
