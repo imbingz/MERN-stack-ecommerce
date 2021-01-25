@@ -1,17 +1,28 @@
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+const userRouter = require('./routes/userRouter');
 //get the product seeds data 
-const data = require('./seeds/products');
+const data = require('./seeds/seed');
 const app = express();
 
+//db connect 
+// console.log(process.env.MONGODB_URI );
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mern_ecommerce', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+});
 
 const PORT = process.env.PORT || 8080;
 
 //use express middlewaree
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(routes);
+
+//use serRouter
+app.use('/api/users', userRouter);
 
 
 // temp product api/product route 
@@ -45,6 +56,10 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+//error handling middleware
+app.use((err, req, res, next) => {
+    res.status(500).send({message: err.message});
+});
 
 //server 
 app.listen(PORT, () => {
