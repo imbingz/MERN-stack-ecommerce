@@ -11,7 +11,11 @@ function App () {
     const cart = useSelector(state => state.cart);
     // decontructure cart to get cartItems
     const {cartItems} = cart;
+    //get userInfo from redux store
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
 
+    // console.log(userInfo);
     return (
         <BrowserRouter>
             <div className='grid-container'>
@@ -30,8 +34,12 @@ function App () {
                                 )
                             }  
                         </Link>
-                        
-                        <Link to='/signin'>Sign In</Link>
+                        {
+                            userInfo 
+                                ? <Link to="#">{userInfo.name} </Link> 
+                                : <Link to='/signin'>Sign In</Link>
+                        }
+                      
                     </div>
                 </header>
                 <main>                  
