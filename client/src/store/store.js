@@ -2,9 +2,16 @@ import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { ProductDetailsReducer, productListReducer } from '../reducers/productReducer';
 import { cartReducer } from '../reducers/cartReducer';
+import { userSigninReducer } from '../reducers/userReducer';
 
 
 const initialState = {
+    //set userInfo to what stored in localStorage
+    userSignin: {
+        userInfo: localStorage.getItem('userInfo') 
+            ? JSON.parse(localStorage.getItem('userInfo')) 
+            : null
+    },
     // set cart initial value to localStorage if exists 
     cart: {
         cartItems: localStorage.getItem('cartItems')
@@ -17,7 +24,8 @@ const initialState = {
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: ProductDetailsReducer,
-    cart:cartReducer
+    cart:cartReducer,
+    userSignin: userSigninReducer
 });
 
 //https://extension.remotedev.io/#usage
