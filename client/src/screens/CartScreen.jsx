@@ -6,6 +6,13 @@ import MessageBox from '../components/MessageBox';
 
 
 function CartScreen(props) {
+    
+    // check if user has already signed in, if not, redirect user to signin 
+    const userSignin = useSelector(state => state.userSignin);
+    const { userInfo } = userSignin;
+    if (!userInfo) {
+        props.history.push('/signin');
+    }
 
     const productId = props.match.params.id;
     ///cart/${productId}?qty={qty}
