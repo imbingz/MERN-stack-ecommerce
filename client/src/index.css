@@ -2,9 +2,9 @@
 Colors: 
 header/foooter-bg/dropdown-bg #203040; 
 header/footer -text: #fff; 
-link-hoveer: #ff8000; 
+link-hoveer/checkout-steps-active/: #ff8000; 
 card-bg: #f8f8f8;
-card-border: #c0c0c0;
+card-border/checkout-steps-border/: #c0c0c0;
 rating:  #f0c040;
 numReviews: #404040;
 success: #20a020;
@@ -282,4 +282,18 @@ img.large {
 
 .dropdown:hover .dropdown-content {
 	display: block;
+}
+
+/* Checkout Steps */
+.checkout-steps>div {
+	border-top: 0.3rem #c0c0c0 solid;
+	color: #c0c0c0;
+	flex: 1;
+	padding: 1rem;
+	font-weight: bold;
+}
+
+.checkout-steps>div.active {
+	border-top-color: #f08000;
+	color: #f08000;
 }
