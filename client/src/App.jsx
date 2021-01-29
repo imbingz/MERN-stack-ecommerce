@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
+import { signout } from './actions/userAction';
 
 function App () {
     // get cart from redux store using useSelector
@@ -14,6 +15,11 @@ function App () {
     //get userInfo from redux store
     const userSignin = useSelector(state => state.userSignin);
     const { userInfo } = userSignin;
+    //signout handler 
+    const dispatch = useDispatch();
+    const signoutHandler = () => {
+        dispatch(signout());
+    };
 
     // console.log(userInfo);
     return (
@@ -36,7 +42,20 @@ function App () {
                         </Link>
                         {
                             userInfo 
-                                ? <Link to="#">{userInfo.name} </Link> 
+                                ? (
+                                    <div className='dropdown'>
+                                        <Link to="#">
+                                            { userInfo.name } 
+                                            <i className="fa fa-caret-down"></i>{ ' ' }
+                                        </Link> 
+                                        <ul className='dropdown-content'>
+                                            <li>
+                                                <Link to='#signout' onClick={signoutHandler}>Sign Out</Link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    
+                                )
                                 : <Link to='/signin'>Sign In</Link>
                         }
                       
