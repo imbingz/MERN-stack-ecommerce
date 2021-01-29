@@ -40,7 +40,7 @@ function ProductScreen (props) {
         <div>
             {
                 loading ? <LoadingBox />
-                    : error ? <MessageBox variants="danger"> { error } </MessageBox>
+                    : error ? <MessageBox variant="danger"> { error } </MessageBox>
                         : (
                             <div>
                                 {/* back to result link  */}
@@ -85,7 +85,7 @@ function ProductScreen (props) {
                                                         <div>
                                                             {
                                                                 product.countInStock > 0 ? <span className='success'> In Stock</span> :
-                                                                    <span className='danger'> Unavailable</span>
+                                                                    <span variant='danger'> Unavailable</span>
                                                             }
                                                         </div>
                                                     </div>
