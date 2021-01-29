@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING_ADDRESS } from '../constants/cartConstants';
 
 // when we define an action function, it should return an async function with dispatch 
 // disptach and getState are redux-thunk functions to get access to redux store
@@ -32,4 +32,11 @@ export const removeFromCart = (productId) => (dispatch, getState) => {
     dispatch({type: CART_REMOVE_ITEM, payload: productId});
 
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+};
+
+// saveShipping address 
+export const saveShippingAddress = (data) => async (dispatch) => {
+    dispatch({type: CART_SAVE_SHIPPING_ADDRESS, payload: data});
+    //save shipping address to localStorage
+    localStorage.setItem('shippingAddress', JSON.stringify(data));
 };
