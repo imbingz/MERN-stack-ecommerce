@@ -212,6 +212,10 @@ img.large {
 .rating span:last-child {
 	color: #404040;
 }
+/* alert */
+.loading {
+	display: block !important;
+}
 
 /* product status  */
 .success {
