@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/userRouter');
 const productRouter = require('./routes/productRouter');
+const orderRouter = require('./routes/orderRouter');
 const app = express();
 
 //db connect 
@@ -23,6 +24,7 @@ app.use(express.json());
 //use serRouter
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
+app.use('/api/orders', orderRouter);
 
 
 
