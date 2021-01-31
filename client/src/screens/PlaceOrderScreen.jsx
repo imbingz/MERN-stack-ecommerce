@@ -1,7 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { createOrder } from '../actions/orderActions';
 import CheckoutSteps from '../components/CheckoutSteps';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 
 
 function PlaceOrderScreen(props) {
@@ -13,6 +17,11 @@ function PlaceOrderScreen(props) {
         props.history.push('/payment');
     }
 
+    //get order info from redux store using useSelector 
+    const orderCreate = useSelector((state) => state.orderCreate);
+    //deconstruct orderCreate for rendering 
+    const { loading, success, error, order } = orderCreate;
+
     // Order summary calculations - price, shipping, tax, total
     // convert price to 2 decimal number (toFixed returns String)
     const toPrice = (price) => Number(price.toFixed(2));
@@ -23,10 +32,21 @@ function PlaceOrderScreen(props) {
     cart.taxPrice = toPrice(0.15 * cart.itemsPrice);
     cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
+    const dispatch = useDispatch();
     //placeOrder Handler 
     const placeOrderHandler = () => {
     //dispatch placeOrder action 
+        dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
+
     };
+  
+    // if order is successful, redirect user to orderDetails screen and reset order {}
+    useEffect (() => {
+        if(success) {
+            props.history.push(`/order/${order._id}`);
+            dispatch({ type: ORDER_CREATE_RESET});
+        }
+    }, [success, order, props.history, dispatch]);
 
     return (
         <div>
@@ -135,7 +155,12 @@ function PlaceOrderScreen(props) {
                                 Place Order
                                 </button>
                             </li>
-
+                            {
+                                loading && <LoadingBox />
+                            }
+                            {
+                                error && <MessageBox variant='danger'>{error} </MessageBox>
+                            }
                         </ul>
                     </div>
                 </div>
