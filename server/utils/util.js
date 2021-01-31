@@ -18,9 +18,12 @@ const generateToken = (user) => {
 
 // isAuth middleware that gets the token info from header and returns user object 
 const isAuth = (req, res, next) => {
-    const authorization = req.header.authorization;
+    const authorization = req.headers.authorization;
     if(authorization) {
         const token = authorization.slice(7); //Bearer xxxxxx 
+
+        // console.log('token is:', token);
+        
         // use JWT to decode the token n get the user info
         jwt.verify(token, process.env.JWT_SECRET || 'somethingsecret', (err, decode) => {
             if(err) {
@@ -29,13 +32,11 @@ const isAuth = (req, res, next) => {
             } 
             // decode contains the user data defined in jwt token
             req.user = decode;
-            console.log(decode);
-            
             // pass req.user data to the next middleware 
             next();
         });
     } else {
-        return res.status(401).send({message: 'No Token'});
+        res.status(401).send({message: 'No Token'});
     }
 };
 
