@@ -10,6 +10,7 @@ import { signout } from './actions/userAction';
 import ShippingAddressScreen from './screens/ShippingAddressScreen.jsx';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import OrderScreen from './screens/OrderScreen';
 
 function App () {
     // get cart from redux store using useSelector
@@ -73,6 +74,7 @@ function App () {
                     <Route path='/shipping' component={ ShippingAddressScreen} />
                     <Route path='/payment' component={ PaymentMethodScreen} />
                     <Route path='/placeorder' component={ PlaceOrderScreen} />
+                    <Route path='/order/:id' component={ OrderScreen} />
                     <Route exact path='/' component={HomeScreen} />
                 </main>
                 <footer className='row center'>All right reserved</footer>
