@@ -27,6 +27,13 @@ app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 
 
+//Paypal client ID from .env file. send back to front end
+app.get('/api/config/paypal', (req, res) => {
+    // console.log(process.env.PAYPAL_CLIENT_ID);
+    res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
+
+
 
 //For heroku deployment - this block of codes will only run in production env
 if (process.env.NODE_ENV === 'production') {
