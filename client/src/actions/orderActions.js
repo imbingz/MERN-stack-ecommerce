@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS } from '../constants/orderConstants';
+import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DETAILS_REQUEST, ORDER_DETAILS_FAIL, ORDER_DETAILS_SUCCESS } from '../constants/orderConstants';
 import { CART_EMPTY } from '../constants/cartConstants';
 
 // use redux-thunk dispatch, getState methods 
@@ -23,5 +23,31 @@ export const createOrder = order => async (dispatch, getState ) => {
     } catch(error) {
         // if error, dispatch FAIL, set payload to error message 
         dispatch({ type: ORDER_CREATE_FAIL, payload: error.response && error.response.data.message ? error.response.data.message : error.message});
+    }
+};
+
+
+// OrderDetail action 
+export const detailsOrder = (orderId) => async (dispatch, getState) => {
+    dispatch({ type: ORDER_DETAILS_REQUEST, payload: orderId});
+    //get userInfo from redux store
+    const { userSignin: { userInfo }} = getState();
+
+    try{ 
+        //get the order-detail data from API request 
+        // need to send the optional header token info for the backend authorization
+        const { data } = await axios.get(
+            `/api/orders/${orderId}`, 
+            {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            });
+        // disptach the data 
+        dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
+    } catch(error) {
+        // if error, dispatch FAIL, set payload to error message 
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+        dispatch({ type: ORDER_DETAILS_FAIL, payload: message});
     }
 };
