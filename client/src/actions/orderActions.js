@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DETAILS_REQUEST, ORDER_DETAILS_FAIL, ORDER_DETAILS_SUCCESS } from '../constants/orderConstants';
+import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DETAILS_REQUEST, ORDER_DETAILS_FAIL, ORDER_DETAILS_SUCCESS, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS, ORDER_PAY_FAIL } from '../constants/orderConstants';
 import { CART_EMPTY } from '../constants/cartConstants';
 
 // use redux-thunk dispatch, getState methods 
@@ -49,5 +49,31 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
         // if error, dispatch FAIL, set payload to error message 
         const message = error.response && error.response.data.message ? error.response.data.message : error.message;
         dispatch({ type: ORDER_DETAILS_FAIL, payload: message});
+    }
+};
+
+//PayOrder action 
+export const payOrder = (order, paymentResult) => async (dispatch, getState) => {
+    dispatch({ type: ORDER_PAY_REQUEST, payload: { order, paymentResult }});
+    //get userInfo from redux store
+    const { userSignin: { userInfo }} = getState();
+
+    try{ 
+        //get the order-detail data from API request 
+        // need to send the optional header token info for the backend authorization
+        //updated order with payment result from paypal api 
+        const { data } = await axios.put(
+            `/api/orders/${order._id}/pay`, paymentResult,
+            {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            });
+        // disptach the data 
+        dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
+    } catch(error) {
+        // if error, dispatch FAIL, set payload to error message 
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message;
+        dispatch({ type: ORDER_PAY_FAIL, payload: message});
     }
 };
