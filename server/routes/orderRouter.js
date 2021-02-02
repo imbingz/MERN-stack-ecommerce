@@ -44,6 +44,39 @@ orderRouter.get('/:id', isAuth, expressAsyncHandler(async(req, res) => {
     }
 }));
 
+// /api/order/:id/pay
+// only logged in user can have the access 
+orderRouter.put('/:id/pay', isAuth, expressAsyncHandler(async(req, res) => {
+
+    // get the order via orderId in params
+    const order = await Order.findById(req.params.id);
+    // console.log('req.body in orderRouter put route:', req.body);
+    // console.log('order in orderRouter.put:', order);
+    
+    // update order if exists 
+    if(order) {
+        order.isPaid = true;
+        order.paidAt = Date.now();
+        //paypal paymentResult obj sent from front 
+        // add paymentResult field in orderModel
+        order.paymentResult = {
+            id: req.body.id,
+            status: req.body.status,
+            update_time: req.body.update_time,
+            email_address: req.body.payer.email_address,
+        };
+        //save updated order in db
+        const updatedOrder = await order.save();
+        // send back updated order 
+        res.send({ message: 'Payment processed successfully', order: updatedOrder });
+    } else {
+        res.status(401).send({ message: 'Order Not Found' });
+    }
+
+
+
+}));
+
 
 
 module.exports = orderRouter;
