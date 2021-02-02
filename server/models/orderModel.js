@@ -51,6 +51,13 @@ const orderSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        // result obj from paypal api 
+        paymentResult: {
+            id: String,
+            status: String,
+            update_time: String,
+            email_address: String,
+        },
         itemsPrice: {
             type: Number,
             required: true
@@ -77,7 +84,7 @@ const orderSchema = new mongoose.Schema(
             default: false
         },
         paidAt: {
-            tppe: Date
+            type: Date
         },
         isDelivered: {
             type: Boolean,
