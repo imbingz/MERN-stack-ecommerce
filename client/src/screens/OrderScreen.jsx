@@ -3,9 +3,10 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { detailsOrder } from '../actions/orderActions';
+import { detailsOrder, payOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 export default function OrderScreen(props) {
     // Get the orderId from params 
@@ -14,14 +15,12 @@ export default function OrderScreen(props) {
     //get orderDetails from redux store
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
-
-    console.log('orderDetails from order screen line 18', orderDetails );
-
-
+    //getorderPay from redux store
+    const orderPay = useSelector((state) => state.orderPay);
+    const { error: errorPay, success: successPay, loading: loadingPay } = orderPay;
     //set PayPal REST API info 
     //https://developer.paypal.com/docs/checkout/reference/server-integration/setup-sdk/
     const [ sdkReady, setSdkReady ] = useState(false);
-
     const dispatch = useDispatch();
 
 
@@ -45,8 +44,9 @@ export default function OrderScreen(props) {
         // console.log(order._id);
         // dispatch(detailsOrder(orderId));
 
-        // disptach the orderDetail action if there is NO orderId
-        if (!order._id) {
+        // disptach the orderDetail action if there is NO orderId, or payment is not successful, or order._id not equals to orderId
+        if (!order._id || successPay || (order && order._id !== orderId)) {
+            dispatch({ type: ORDER_PAY_RESET });
             dispatch(detailsOrder(orderId));
         } else {
         //check if payment method has been loaded, if not, call addPayPalScript function
@@ -59,11 +59,13 @@ export default function OrderScreen(props) {
             }
         }
 
-    }, [dispatch, orderId, order ]);
+    }, [dispatch, orderId, order, successPay]);
 
-    // paypal payment 
-    const successPaymentHandler = () => {
+    // paypal payment - paymentResult is an obj returned from paypal
+    const successPaymentHandler = (paymentResult) => {
+        // console.log('paymentResult:', paymentResult);
         //dispatch payOrder action 
+        dispatch(payOrder(order, paymentResult));
       
     };
 
@@ -183,12 +185,18 @@ export default function OrderScreen(props) {
                                     {!sdkReady ? (
                                         <LoadingBox />
                                     ) : (
-                                           
-                                        <PayPalButton
-                                            amount={ order.totalPrice }
-                                            onSuccess={ successPaymentHandler }
-                                        ></PayPalButton>
-                                       
+                                        <>  
+                                            {
+                                                loadingPay && <LoadingBox />
+                                            }
+                                            {
+                                                errorPay && <MessageBox variant='danger'>{errorPay}</ MessageBox>
+                                            }   
+                                            <PayPalButton
+                                                amount={ order.totalPrice }
+                                                onSuccess={ successPaymentHandler }
+                                            ></PayPalButton>
+                                        </>
                                     ) }
                                 </li>
                             ) }
