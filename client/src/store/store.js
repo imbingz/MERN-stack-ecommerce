@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { ProductDetailsReducer, productListReducer } from '../reducers/productReducer';
 import { cartReducer } from '../reducers/cartReducer';
 import { userRegisterReducer, userSigninReducer } from '../reducers/userReducer';
-import { orderCreateReducer, orderDetailsReducer } from '../reducers/orderReducer';
+import { orderCreateReducer, orderDetailsReducer, orderPayReducer } from '../reducers/orderReducer';
 
 
 const initialState = {
@@ -33,7 +33,8 @@ const reducer = combineReducers({
     userSignin: userSigninReducer,
     userRegister: userRegisterReducer,
     orderCreate: orderCreateReducer,
-    orderDetails: orderDetailsReducer
+    orderDetails: orderDetailsReducer,
+    orderPay: orderPayReducer
 });
 
 //https://extension.remotedev.io/#usage
