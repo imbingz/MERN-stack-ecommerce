@@ -15,10 +15,10 @@ export default function OrderScreen(props) {
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
 
-    // console.log(order);
+    console.log('orderDetails from order screen line 18', orderDetails );
 
 
-    //set PayPal RESTAPI info 
+    //set PayPal REST API info 
     //https://developer.paypal.com/docs/checkout/reference/server-integration/setup-sdk/
     const [ sdkReady, setSdkReady ] = useState(false);
 
@@ -34,21 +34,22 @@ export default function OrderScreen(props) {
             script.type = 'text/javascript';
             script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
             script.async = true;
+            //onload happens when the script is loaded to the browser
             script.onload = () => {
                 setSdkReady(true);
             };
-            //add to body as the last child 
+            //add the script to body as the last child 
             document.body.appendChild(script);
         };
 
         // console.log(order._id);
-
+        // dispatch(detailsOrder(orderId));
 
         // disptach the orderDetail action if there is NO orderId
         if (!order._id) {
             dispatch(detailsOrder(orderId));
         } else {
-            //check if payment method has been loaded, if not, call addPayPalScript function
+        //check if payment method has been loaded, if not, call addPayPalScript function
             if(!order.isPaid) {
                 if(!window.paypal) {
                     addPayPalScript();
@@ -58,13 +59,11 @@ export default function OrderScreen(props) {
             }
         }
 
-
-
-    }, [dispatch, order, orderId]);
+    }, [dispatch, orderId, order ]);
 
     // paypal payment 
     const successPaymentHandler = () => {
-        //dispatch action 
+        //dispatch payOrder action 
       
     };
 
@@ -92,7 +91,7 @@ export default function OrderScreen(props) {
                                 </p>
                                 { order.isDelivered ? (
                                     <MessageBox variant="success">
-                        Delivered at {order.deliveredAt }
+                                        Delivered at {order.deliveredAt }
                                     </MessageBox>
                                 ) : (
                                     <MessageBox variant="danger">Not Delivered</MessageBox>
@@ -107,7 +106,7 @@ export default function OrderScreen(props) {
                                 </p>
                                 { order.isPaid ? (
                                     <MessageBox variant="success">
-                        Paid at {order.paidAt }
+                                        Paid at {order.paidAt }
                                     </MessageBox>
                                 ) : (
                                     <MessageBox variant="danger">Not Paid</MessageBox>
@@ -184,13 +183,12 @@ export default function OrderScreen(props) {
                                     {!sdkReady ? (
                                         <LoadingBox />
                                     ) : (
-                                        <>
-                                            
-                                            <PayPalButton
-                                                amount={ order.totalPrice }
-                                                onSuccess={ successPaymentHandler }
-                                            ></PayPalButton>
-                                        </>
+                                           
+                                        <PayPalButton
+                                            amount={ order.totalPrice }
+                                            onSuccess={ successPaymentHandler }
+                                        ></PayPalButton>
+                                       
                                     ) }
                                 </li>
                             ) }
