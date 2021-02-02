@@ -6,7 +6,8 @@ const orderRouter = express.Router();
 
 
 
-// /apil/orders/
+// /apil/orders/ 
+// use expressAsyncHandler to catch error from async function 
 orderRouter.post('/', isAuth, expressAsyncHandler(async(req, res) => {
     if(req.body.orderItems.length === 0) {
         return res.status(400).send({message: 'Cart is empty'});

@@ -3,7 +3,7 @@ import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DE
 import { CART_EMPTY } from '../constants/cartConstants';
 
 // use redux-thunk dispatch, getState methods 
-export const createOrder = order => async (dispatch, getState ) => {
+export const createOrder = (order) => async (dispatch, getState ) => {
     dispatch({ type: ORDER_CREATE_REQUEST, payload: order});
     try {
         //get userinfo from redux store using getState that returns the whole redux store 
