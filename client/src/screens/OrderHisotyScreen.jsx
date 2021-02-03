@@ -40,7 +40,7 @@ function OrderHisotyScreen(props) {
                                             <tr key={order._id}>
                                                 <td>{order._id}</td>
                                                 <td>{order.createdAt.slice(0,10)}</td>
-                                                <td>{order.totalPrice}</td>
+                                                <td>${order.totalPrice}</td>
                                                 <td>{order.paidAt ? order.paidAt.slice(0,10) : 'No'}</td>
                                                 <td>{ order.deliveredAt ? order.deliveredAt.slice(0,10): 'No'}</td>
                                                 <td>

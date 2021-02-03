@@ -84,7 +84,7 @@ export const listOrderMine = () => async (dispatch, getState) => {
     //get user info 
     const { userSignin: {userInfo}} = getState();
     
-    console.log('userInfo:', userInfo);
+    // console.log('userInfo:', userInfo);
     
     try{
         // send ajax request to get the user's orders 
