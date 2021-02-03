@@ -11,6 +11,7 @@ import ShippingAddressScreen from './screens/ShippingAddressScreen.jsx';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import OrderHisotyScreen from './screens/OrderHisotyScreen';
 
 function App () {
     // get cart from redux store using useSelector
@@ -54,6 +55,7 @@ function App () {
                                             <i className="fa fa-caret-down"></i>{ ' ' }
                                         </Link> 
                                         <ul className='dropdown-content'>
+                                            <Link to='/orderhistory'> Order History </Link>
                                             <li>
                                                 <Link to='#signout' onClick={signoutHandler}>Sign Out</Link>
                                             </li>
@@ -75,6 +77,7 @@ function App () {
                     <Route path='/payment' component={ PaymentMethodScreen} />
                     <Route path='/placeorder' component={ PlaceOrderScreen} />
                     <Route path='/order/:id' component={ OrderScreen} />
+                    <Route path='/orderhistory' component={ OrderHisotyScreen} />
                     <Route exact path='/' component={HomeScreen} />
                 </main>
                 <footer className='row center'>All right reserved</footer>
