@@ -12,6 +12,7 @@ import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import OrderHisotyScreen from './screens/OrderHisotyScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 function App () {
     // get cart from redux store using useSelector
@@ -55,7 +56,12 @@ function App () {
                                             <i className="fa fa-caret-down"></i>{ ' ' }
                                         </Link> 
                                         <ul className='dropdown-content'>
-                                            <Link to='/orderhistory'> Order History </Link>
+                                            <li>
+                                                <Link to="/profile">Profile</Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/orderhistory">Orders</Link>
+                                            </li>
                                             <li>
                                                 <Link to='#signout' onClick={signoutHandler}>Sign Out</Link>
                                             </li>
@@ -73,11 +79,12 @@ function App () {
                     <Route path='/product/:id' component={ProductScreen} />
                     <Route path='/signin' component={SigninScreen} />
                     <Route path='/register' component={RegisterScreen} />
-                    <Route path='/shipping' component={ ShippingAddressScreen} />
-                    <Route path='/payment' component={ PaymentMethodScreen} />
-                    <Route path='/placeorder' component={ PlaceOrderScreen} />
-                    <Route path='/order/:id' component={ OrderScreen} />
-                    <Route path='/orderhistory' component={ OrderHisotyScreen} />
+                    <Route path='/shipping' component={ShippingAddressScreen} />
+                    <Route path='/payment' component={PaymentMethodScreen} />
+                    <Route path='/placeorder' component={PlaceOrderScreen} />
+                    <Route path='/order/:id' component={OrderScreen} />
+                    <Route path='/orderhistory' component={OrderHisotyScreen} />
+                    <Route path='/profile' component={ProfileScreen} />
                     <Route exact path='/' component={HomeScreen} />
                 </main>
                 <footer className='row center'>All right reserved</footer>
