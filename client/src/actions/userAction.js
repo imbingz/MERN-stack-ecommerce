@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from '../constants/userConstants';
+import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from '../constants/userConstants';
 
 
 //register action 
@@ -43,10 +43,30 @@ export const signin = (email, password) => async (dispatch) => {
 };
 
 // signout action 
-
 export const signout = () => (dispatch) => {
     //remove userInfo and cartItems from localStorage upon user signout 
     localStorage.removeItem('userInfo');
     localStorage.removeItem('cartItems');
     dispatch({ type: USER_SIGNOUT});
+};
+
+//user profile detail action 
+export const detailsUser = (userId) => async (dispatch, getState) => {
+    dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
+    //get userInfo from store
+    const { userSignin: { userInfo } } = getState();
+     
+    try{
+        //send ajax request 
+        const { data } = await axios.get(`/api/users/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${userInfo?.token}`
+            }
+        });
+
+        dispatch({type: USER_DETAILS_SUCCESS, payload: data});
+    } catch(error) {
+        // if error, dispatch FAIL, set payload to error message 
+        dispatch({ type: USER_DETAILS_FAIL, payload: error.response && error.response.data.message ? error.response.data.message : error.message});
+    }
 };
