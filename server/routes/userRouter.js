@@ -65,4 +65,19 @@ userRouter.post('/register', expressAsyncHandler(async ({body}, res) => {
 })
 );
 
+
+// api/users/details 
+userRouter.get('/:id', expressAsyncHandler(async (req, res) => {
+    //get user info from User db
+    const user = await User.findById(req.params.id);
+    //send user obj backto front end if there is user 
+    if(user) {
+        res.send(user);
+    } else {
+        res.status(404).send({ message: 'User Not Found'});
+    }
+
+}));
+
+
 module.exports = userRouter;
