@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT } from '../constants/userConstants';
+import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS, USER_REGISTER_FAIL, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_SIGNIN_FAIL, USER_SIGNIN_REQUEST, USER_SIGNIN_SUCCESS, USER_SIGNOUT, USER_UPDATE_PROFILE_FAIL, USER_UPDATE_PROFILE_REQUEST, USER_UPDATE_PROFILE_SUCCESS } from '../constants/userConstants';
 
 
 //register action 
@@ -55,7 +55,7 @@ export const detailsUser = (userId) => async (dispatch, getState) => {
     dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
     //get userInfo from store
     const { userSignin: { userInfo } } = getState();
-     
+
     try{
         //send ajax request 
         const { data } = await axios.get(`/api/users/${userId}`, {
@@ -68,5 +68,30 @@ export const detailsUser = (userId) => async (dispatch, getState) => {
     } catch(error) {
         // if error, dispatch FAIL, set payload to error message 
         dispatch({ type: USER_DETAILS_FAIL, payload: error.response && error.response.data.message ? error.response.data.message : error.message});
+    }
+};
+
+//user Profile update action 
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+    dispatch({ type: USER_UPDATE_PROFILE_REQUEST, payload: user });
+    //get userInfo from store
+    const { userSignin: { userInfo } } = getState();
+
+    try{
+        //send ajax request 
+        const { data } = await axios.put('/api/users/profile', user, {
+            headers: {
+                Authorization: `Bearer ${userInfo?.token}`
+            }
+        });
+
+        dispatch({type: USER_UPDATE_PROFILE_SUCCESS, payload: data});
+        //update userSignin as well to update the display
+        dispatch({type:USER_SIGNIN_SUCCESS, payload: data});
+        //update localStorage after profile updated
+        localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch(error) {
+        // if error, dispatch FAIL, set payload to error message 
+        dispatch({ type: USER_UPDATE_PROFILE_FAIL, payload: error.response && error.response.data.message ? error.response.data.message : error.message});
     }
 };
