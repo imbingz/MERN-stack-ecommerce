@@ -2,7 +2,7 @@ import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { ProductDetailsReducer, productListReducer } from '../reducers/productReducer';
 import { cartReducer } from '../reducers/cartReducer';
-import { useDetailsReducer, userRegisterReducer, userSigninReducer } from '../reducers/userReducer';
+import { userDetailsReducer, userRegisterReducer, userSigninReducer, userUpdateProfileReducer } from '../reducers/userReducer';
 import { orderCreateReducer, orderDetailsReducer, orderMineListReducer, orderPayReducer } from '../reducers/orderReducer';
 
 
@@ -36,7 +36,8 @@ const reducer = combineReducers({
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
     orderMineList: orderMineListReducer,
-    userDetails: useDetailsReducer
+    userDetails: userDetailsReducer,
+    userUpdateProfile: userUpdateProfileReducer
 });
 
 //https://extension.remotedev.io/#usage
